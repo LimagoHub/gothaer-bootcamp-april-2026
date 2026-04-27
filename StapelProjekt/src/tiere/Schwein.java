@@ -1,4 +1,4 @@
-package de.gothaer.tiere;
+package tiere;
 public class Schwein {
 
     private String name;
