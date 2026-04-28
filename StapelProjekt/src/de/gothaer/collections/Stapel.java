@@ -1,28 +1,40 @@
 package de.gothaer.collections;
 
-public class Stapel {
+import javax.management.relation.RelationServiceNotRegisteredException;
+
+public class Stapel<HERBERT> {
 
     private static final int DEFAULT_SIZE = 10;
-    private int [] data;
+    private HERBERT [] data;
     private int index;
 
-    public Stapel() {
+    public Stapel() throws StapelException {
+
         this(DEFAULT_SIZE);
+
     }
 
-    public Stapel(int size) {
-        data = new int [size < 1? DEFAULT_SIZE : size];
-        index = 0;
+    public Stapel(int size) throws StapelException {
+        try {
+            data = (HERBERT[]) new Object [size];
+            index = 0;
+        } catch (NegativeArraySizeException e) {
+            throw new StapelException("Init", e);
+        }
     }
 
 
-    public void push(int value) {
-        if(isFull()) return;
-        data[index++] = value;
+    public void push(HERBERT value) throws StapelException {
+
+        try {
+            data[index++] = value;
+        } catch (Exception e) {
+            throw new StapelException("Overflow", e);
+        }
     }
 
-    public int pop() {
-        if(isEmpty()) return  0;
+    public HERBERT pop() throws StapelException {
+        if(isEmpty())  throw new StapelException("Underflow");
         return data[--index];
     }
 
