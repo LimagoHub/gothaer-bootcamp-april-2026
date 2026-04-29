@@ -10,12 +10,14 @@ public class Main {
 
        var main =new Main();
        main.run();
-      
+
     }
 
     public void run() {
-        var stream = IntStream.rangeClosed(1, 1000).limit(10);
-        stream.forEach(System.out::println);
+        IntStream.rangeClosed(1, 1000_000)
+                .parallel()
+                .filter(this::isPrime)
+                .forEach(System.out::println);
     }
 
     public boolean isPrime(int possiblePrime) {
