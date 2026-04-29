@@ -48,6 +48,9 @@ public class BouncingBall extends Frame {
         try {
             g = getBufferStrategy().getDrawGraphics();
             g.clearRect(0,0,getWidth(),getHeight());
+            if(gameover) {
+                g.drawString("Game Over", getWidth()/2, getHeight()/2);
+            }
             ball.paint(g);
         } finally {
             if (g != null) {
