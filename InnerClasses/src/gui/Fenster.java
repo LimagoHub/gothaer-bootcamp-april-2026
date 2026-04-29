@@ -8,18 +8,28 @@ public class Fenster extends Frame {
 
     public Fenster()  {
         setSize(500,500);
-        addWindowListener(new MyWindowListener());
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {beenden();}
+        });
+    
+        addKeyListener(new MyKeyListener());
     }
 
     public static void main(String[] args) {
         new Fenster().setVisible(true);
     }
 
-    class MyWindowListener extends WindowAdapter {
+    private void beenden() {
+        dispose();
+    }
 
+
+    class MyKeyListener extends KeyAdapter {
         @Override
-        public void windowClosing(final WindowEvent e) {
-            dispose();
+        public void keyPressed(final KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                beenden();
+            }
         }
     }
 
